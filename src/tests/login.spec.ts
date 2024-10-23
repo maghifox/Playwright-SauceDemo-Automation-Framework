@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import LoginPage from "../pages/LoginPage";
 
-test("test", async ({ page }) => {
+test("Verify login using valid credentials", async ({ page }) => {
 
    const loginPage = new LoginPage(page);
 
