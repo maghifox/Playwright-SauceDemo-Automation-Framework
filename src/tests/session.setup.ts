@@ -10,11 +10,11 @@ setup("Authenticate", async ({ page }) => {
    await loginPage.navigateToLoginPage();
    await loginPage.fillUsername(process.env.userid!);
    await loginPage.fillPassword(process.env.password!);
+   await loginPage.clickLoginButton();
 
-   const homePage = await loginPage.clickLoginButton();
+   const homePage = await loginPage.validateLoginSuccess();
    await homePage.expectTitleToBeVisible();
 
    await page.context().storageState({ path: AUTH_FILE })
-
 
 });
