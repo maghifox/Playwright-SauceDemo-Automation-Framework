@@ -6,8 +6,8 @@ test("test", async ({ page }) => {
    const loginPage = new LoginPage(page);
 
    await loginPage.navigateToLoginPage();
-   await loginPage.fillUsername("standard_user");
-   await loginPage.fillPassword("secret_sauce");
+   await loginPage.fillUsername(process.env.userid!);
+   await loginPage.fillPassword(process.env.password!);
 
    const homePage = await loginPage.clickLoginButton();
    await homePage.expectTitleToBeVisible();
