@@ -11,10 +11,6 @@ export default class LoginPage {
 
   }
 
-  async navigateToLoginPage() {
-    await this.page.goto("/");
-  }
-
   async fillUsername(username: string) {
     await this.page.locator(this.usernameInputSelector).fill(username);
   }

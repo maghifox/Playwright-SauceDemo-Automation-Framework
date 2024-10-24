@@ -5,9 +5,10 @@ setup("Authenticate", async ({ page }) => {
 
    const AUTH_FILE = "./src/config/auth.json"
 
+   await page.goto('/');
+
    const loginPage = new LoginPage(page);
 
-   await loginPage.navigateToLoginPage();
    await loginPage.fillUsername(process.env.userid!);
    await loginPage.fillPassword(process.env.password!);
    await loginPage.clickLoginButton();

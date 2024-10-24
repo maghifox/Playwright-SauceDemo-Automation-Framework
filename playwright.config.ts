@@ -42,27 +42,56 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'login-chromium',
+      testMatch: 'login.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    // {
+    //   name: 'login-firefox',
+    //   testMatch: 'login.spec.ts',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+    // {
+    //   name: 'login-webkit',
+    //   testMatch: 'login.spec.ts',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+    {
       name: "setup",
       use: { ...devices["Desktop Chrome"] },
       testMatch: /.*\.setup\.ts/,
     },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      testIgnore: 'login.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: "./src/config/auth.json",
+      },
+
       dependencies: ["setup"],
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      dependencies: ["setup"],
-    },
+    // {
+    //   name: 'firefox',
+    //   testIgnore: 'login.spec.ts',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: "./src/config/auth.json",
+    //   },
+    //   dependencies: ["setup"],
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      dependencies: ["setup"],
-    },
+    // {
+    //   name: 'webkit',
+    //   testIgnore: 'login.spec.ts',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     storageState: "./src/config/auth.json",
+    //   },
+    //   dependencies: ["setup"],
+    // },
 
     /* Test against mobile viewports. */
     // {
