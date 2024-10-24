@@ -1,4 +1,5 @@
 import { Page, expect } from "@playwright/test";
+import exp from "constants";
 
 export default class ProductListPage {
 
@@ -7,6 +8,8 @@ export default class ProductListPage {
   private readonly shoppingCartIcon = ".shopping_cart_link";
   private readonly shoppingCartBadge = ".shopping_cart_badge";
   private readonly productNameSelector = ".inventory_item_name";
+  private readonly filterLocator = ".product_sort_container";
+  private readonly productPriceSelector = ".inventory_item_price";
 
   readonly page: Page;
 
@@ -53,4 +56,37 @@ export default class ProductListPage {
   async productName() {
     return await this.page.locator(this.productNameSelector).textContent();
   }
+
+  async getAllProductName() {
+    const allProductNameClass = await this.page.locator(this.productNameSelector).all();
+    const productNameArray: string[] = [];
+    for (let i = 0; i < (allProductNameClass).length; i++)
+      productNameArray[i] = (await allProductNameClass[i].textContent())!;
+
+    return productNameArray;
+  }
+
+  async selectFilter(sort: string) {
+    await this.page.locator(this.filterLocator).selectOption({ value: sort });
+  }
+
+  async expectProductNameSorted(pro1: string[], pro2: string[]) {
+    expect(pro1).toEqual(pro2);
+  }
+
+  async getAllProductPrice() {
+    const allProductPriceClass = await this.page.locator(this.productPriceSelector).all();
+    const productPriceArray: number[] = [];
+    for (let i = 0; i < (allProductPriceClass).length; i++) {
+      let num = (await allProductPriceClass[i].textContent())!;
+      productPriceArray[i] = Number(num.replace(/[^0-9]/, ""));
+    }
+
+    return productPriceArray;
+  }
+
+  async expectProductPriceSorted(pro1: number[], pro2: number[]) {
+    expect(pro1).toEqual(pro2);
+  }
+
 }
